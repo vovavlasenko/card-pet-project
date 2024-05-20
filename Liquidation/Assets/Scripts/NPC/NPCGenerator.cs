@@ -6,11 +6,8 @@ public class NPCGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject _npcPrefab;
     [SerializeField] private Transform _npcParentTransform;
-    [SerializeField] private List<Sprite> _npcSprites;
-
-    public static event Action<GameObject> OnNewNPCCharacterSpawn;
-
-    private List<Sprite> _availableSprites = new List<Sprite>();
+    
+    private NpcFactory _npcFactory = new NpcFactory();
 
     public GameObject CurrentNPC { get; private set; }
 
@@ -24,38 +21,32 @@ public class NPCGenerator : MonoBehaviour
     {
         NPCDistraction.OnFullDistraction += CreateNewNPCCharacter;
         NPCHealth.OnAllHPLost += CreateNewNPCCharacter;
+        CardFactory.OnCardCreated += SetNPCToCard;
     }
 
     private void OnDisable()
     {
         NPCDistraction.OnFullDistraction -= CreateNewNPCCharacter;
         NPCHealth.OnAllHPLost -= CreateNewNPCCharacter;
+        CardFactory.OnCardCreated -= SetNPCToCard;
     }
 
     private void CreateNewNPCCharacter()
     {
-        int spriteIndex = AvailableSpriteIndex();
-
         if (CurrentNPC != null)
             Destroy(CurrentNPC);
 
-        CurrentNPC = Instantiate(_npcPrefab, _npcParentTransform);
-        CurrentNPC.GetComponent<NPCCharacter>().SetNpcSprite(_availableSprites[spriteIndex]);
-        _availableSprites.RemoveAt(spriteIndex);
-        OnNewNPCCharacterSpawn?.Invoke(CurrentNPC);
+        CurrentNPC = _npcFactory.Create(_npcParentTransform);
     }
 
-    private int AvailableSpriteIndex() 
+
+    private void SetNPCToCard(GameObject cardObject) // Прокидываем сущность NPC в скрипт карты
     {
-        if (_availableSprites.Count == 0)
+        if (CurrentNPC != null)
         {
-            for (int i = 0; i < _npcSprites.Count; i++)
-            {
-                _availableSprites.Add(_npcSprites[i]);
-            }
+            var card = cardObject.GetComponent<Card>();
+            card.SetNPCCharacter(CurrentNPC);
         }
-         
-        return UnityEngine.Random.Range(0, _availableSprites.Count);               
     }
 
 }

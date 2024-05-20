@@ -9,12 +9,12 @@ public abstract class Card : MonoBehaviour
 {
 
     public static event Action OnCardPlayed;
-    public static event Action<CardInitializer.Type> OnConcreteCardToGenerate;
+    public static event Action<CardType.Type> OnConcreteCardToGenerate;
 
     protected CardInterface CardInterface;
     protected Button CardButton;
 
-    public NPCCharacter Npc;
+    public NPCModel Npc;
 
     private void Awake()
     {
@@ -24,13 +24,13 @@ public abstract class Card : MonoBehaviour
 
     private void OnEnable()
     {
-        NPCGenerator.OnNewNPCCharacterSpawn += SetNPCCharacter;
+        NpcFactory.OnNewNPCCharacterSpawn += SetNPCCharacter;
         CardButton.onClick.AddListener(OnButtonClick);
     }
 
     private void OnDisable()
     {
-        NPCGenerator.OnNewNPCCharacterSpawn -= SetNPCCharacter;
+        NpcFactory.OnNewNPCCharacterSpawn -= SetNPCCharacter;
         CardButton.onClick.RemoveListener(OnButtonClick);
     }
 
@@ -59,14 +59,14 @@ public abstract class Card : MonoBehaviour
     /// <param name="npcCharacter"></param>
     public void SetNPCCharacter(GameObject npcCharacter)
     {
-        Npc = npcCharacter.GetComponent<NPCCharacter>();
+        Npc = npcCharacter.GetComponent<NPCModel>();
     }
 
     /// <summary>
     /// »спользуем, когда при разыгрывании карты, игрок должен получить другую, св€з€нную с ней карту
     /// </summary>
     /// <param name="type"></param>
-    protected void RequireConcreteCard(CardInitializer.Type type)
+    protected void RequireConcreteCard(CardType.Type type)
     {
         OnConcreteCardToGenerate?.Invoke(type);
     }

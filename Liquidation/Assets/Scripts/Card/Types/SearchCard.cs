@@ -9,7 +9,7 @@ public class SearchCard : Card
 
     public override void OnButtonClick() // При использовании карты Поиска, выдаем игроку карту Оружия
     {
-        RequireConcreteCard(CardInitializer.Type.Weapon);
+        RequireConcreteCard(CardType.Type.Weapon);
         base.OnButtonClick();
     }
 

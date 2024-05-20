@@ -2,11 +2,21 @@ using UnityEngine;
 
 public class CardInitializer 
 {
-    public enum Type { Empty, Theft, Bribe, Search, Weapon, Alibi, Check, Distraction, Moving }
-    public Type CurrentType;
+    public void SetCardType(GameObject card, CardType.Type type)
+    {
+        if (type == CardType.Type.Random)
+        {
+            SetRandomCardType(card);
+        }
+
+        else
+        {
+            SetConcreteType(card, type);
+        }
+    }
 
     // Присваиваем карте рандомный тип
-    public void SetRandomCardType(GameObject card)
+    private void SetRandomCardType(GameObject card)
     {
         int rand = Random.Range(0, 100);
         {
@@ -39,14 +49,14 @@ public class CardInitializer
     }
 
     // Присваиваем карте конкретный тип
-    public void SetConcreteType(GameObject card, Type cardType)
+    private void SetConcreteType(GameObject card, CardType.Type cardType)
     {
         switch(cardType)
         {
-            case Type.Weapon:
+            case CardType.Type.Weapon:
                 card.AddComponent(typeof(WeaponCard));
                     break;
-            case Type.Bribe:
+            case CardType.Type.Bribe:
                 card.AddComponent(typeof(BribeCard));
                 break;
         }

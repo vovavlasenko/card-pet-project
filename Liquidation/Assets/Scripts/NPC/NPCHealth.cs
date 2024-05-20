@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class NPCHealth : NPCParameter
 {
-    [SerializeField] private NPCCharacter _npcCharacter;
-
     public static event Action OnAllHPLost;
 
     private int _damageAmount;

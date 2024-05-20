@@ -11,7 +11,7 @@ public class TheftCard : Card
 
     public override void OnButtonClick()
     {
-        RequireConcreteCard(CardInitializer.Type.Bribe);
+        RequireConcreteCard(CardType.Type.Bribe);
         base.OnButtonClick();
     }
 }

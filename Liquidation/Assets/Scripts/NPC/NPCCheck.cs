@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCCheck : NPCParameter
 {
-    [SerializeField] private NPCCharacter _npcCharacter;
+    [SerializeField] private NPCModel _npcCharacter;
 
     // При использовании карты проверки добавляем единицу к значению проверки
     public override void OnConnectedCardUse() 

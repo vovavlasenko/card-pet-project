@@ -256,7 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15662e12726aa646a3523680c5b9258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardPrefab: {fileID: 3927577341322698168, guid: e17248adcc0dd2d4c84d03961b3c1f5a, type: 3}
   _parentTransform: {fileID: 1921934666}
   _npcGenerator: {fileID: 1065569927}
 --- !u!4 &500272440
@@ -444,6 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1065569928}
   - component: {fileID: 1065569927}
+  - component: {fileID: 1065569929}
   m_Layer: 0
   m_Name: NPCGenerator
   m_TagString: Untagged
@@ -465,9 +465,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _npcPrefab: {fileID: 4869024407353089917, guid: 6dcfa632a16a16746b97a65f2a66403c, type: 3}
   _npcParentTransform: {fileID: 62531802}
-  _npcSprites:
-  - {fileID: 21300000, guid: cf6103745ea58994d98a6e44be74cbe5, type: 3}
-  - {fileID: 21300000, guid: 8fe210e93dd2b5940a62528abb1e3336, type: 3}
 --- !u!4 &1065569928
 Transform:
   m_ObjectHideFlags: 0
@@ -483,6 +480,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1065569929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065569926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9482d42d1c80a834ab25f9f597867d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcSprites:
+  - {fileID: 21300000, guid: cf6103745ea58994d98a6e44be74cbe5, type: 3}
+  - {fileID: 21300000, guid: 8fe210e93dd2b5940a62528abb1e3336, type: 3}
 --- !u!1 &1274761930
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,14 +1,12 @@
-using UnityEngine.UI;
 using UnityEngine;
 
-public class NPCCharacter : MonoBehaviour
+public class NPCModel : MonoBehaviour
 {
     [SerializeField] private NPCSuspicion _suspicion;
     [SerializeField] private NPCDistraction _distraction;
     [SerializeField] private NPCHealth _health;
     [SerializeField] private NPCCheck _check;
-    [SerializeField] private Image _npcImage;
-
+    
     public NPCSuspicion Suspicion => _suspicion;
     public NPCDistraction Distraction => _distraction;
     public NPCHealth Health => _health;
@@ -31,11 +29,6 @@ public class NPCCharacter : MonoBehaviour
     {
         NPCHealth.OnAllHPLost -= CheckTargetBeforeNPCSwitch;
         NPCDistraction.OnFullDistraction -= CheckTargetBeforeNPCSwitch;
-    }
-
-    public void SetNpcSprite(Sprite sprite)
-    {
-        _npcImage.sprite = sprite;
     }
 
     private void SetNPCTargetOrNot()

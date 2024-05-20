@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class CardGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject _cardPrefab;
     [SerializeField] private Transform _parentTransform;
     [SerializeField] private NPCGenerator _npcGenerator;
 
-    private CardInitializer _cardInitializer = new CardInitializer();
-    private CardInitializer.Type _concreteType = CardInitializer.Type.Empty;
+    private CardType.Type _typeToSpawn = CardType.Type.Random;
+    private CardFactory _cardFactory = new CardFactory();
 
     private void Start()
     {
@@ -25,6 +24,7 @@ public class CardGenerator : MonoBehaviour
         Card.OnCardPlayed -= GenerateCard;
     }
 
+    // √енерируем руку игрока на старте
     private void GenerateCardsHardOnNewLocation()
     {
         for (int i = 0; i < 5; i++)
@@ -36,28 +36,12 @@ public class CardGenerator : MonoBehaviour
     // √енерируем новую карту в руке игрока
     private void GenerateCard()
     {
-        var card = Instantiate(_cardPrefab, _parentTransform);
-
-        if (_concreteType == CardInitializer.Type.Empty)
-        {
-            _cardInitializer.SetRandomCardType(card);
-        }
-
-        else
-        {
-            _cardInitializer.SetConcreteType(card, _concreteType);
-            _concreteType = CardInitializer.Type.Empty;
-        }
-
-        if (_npcGenerator.CurrentNPC != null)
-        {
-            card.GetComponent<Card>().SetNPCCharacter(_npcGenerator.CurrentNPC);
-        }
+        _cardFactory.Create(_parentTransform, _typeToSpawn);
+        _typeToSpawn = CardType.Type.Random;
     }
 
-    // «адаем дл€ генерации конкретный тип карты
-    public void SetConcreteCardType(CardInitializer.Type type) 
+    private void SetConcreteCardType(CardType.Type type)
     {
-        _concreteType = type;
+        _typeToSpawn = type;
     }
 }
